@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FolioMentor – Portfolio Review & Creative Mentorship</title>
+<style>
+:root{--bg:#f5f4ff;--ink:#16163a;--mute:#6a6b8a;--line:#e4e2f5;--v:#6c4cf1;--v2:#9b6bff;--c:#ff6b57;--m:#12a88a;--card:#fff;--bad:#d63a2f;--sh:0 8px 28px rgba(60,40,160,.09)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(900px 420px at 88% -60px,#e0d9ff,transparent),var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,-apple-system,sans-serif}
+h1,h2,h3,h4{line-height:1.15;margin:.2em 0 .5em;letter-spacing:-.02em}h2{font-size:1.8rem}
+nav{display:flex;flex-wrap:wrap;gap:4px;align-items:center;padding:12px 24px;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav b{font-size:1.35rem;margin-right:auto;background:linear-gradient(90deg,var(--v),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+nav a,nav button{color:var(--ink);text-decoration:none;padding:7px 14px;border-radius:20px;background:none;border:0;font:inherit;font-size:.93rem;cursor:pointer}
+nav a:hover,nav button:hover{background:#efecff}nav a.on{background:var(--v);color:#fff}
+main{max-width:1100px;margin:0 auto;padding:28px 20px 70px}
+a{color:var(--v);font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--sh)}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.grid .card{transition:transform .2s,box-shadow .2s}.grid .card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(60,40,160,.16)}
+.stats{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin:18px 0 26px}
+.stats .card{border-top:4px solid var(--v);padding:16px 18px}.stats .card:nth-child(2n){border-top-color:var(--c)}.stats .card:nth-child(3n){border-top-color:var(--m)}
+.stats .card b{display:block;font-size:2.1rem;line-height:1.1;color:var(--ink)}
+label{display:block;font-weight:600;margin:12px 0 5px;font-size:.9rem}
+input,select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fcfcff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{border-color:var(--v);outline:0;box-shadow:0 0 0 4px #e6e0ff}
+textarea{min-height:90px;resize:vertical}
+:focus-visible{outline:3px solid var(--v);outline-offset:2px}
+.btn{background:linear-gradient(120deg,var(--v),var(--v2));color:#fff;border:0;border-radius:10px;padding:10px 20px;font:600 .95rem inherit;font-family:inherit;cursor:pointer;margin:14px 8px 0 0;box-shadow:0 6px 16px rgba(108,76,241,.3)}
+.btn:hover{filter:brightness(1.08)}
+.btn.s{padding:6px 14px;font-size:.86rem;margin-top:10px;background:#fff;color:var(--v);border:1.5px solid var(--v);box-shadow:none}
+.btn.d{background:#fff;color:var(--bad);border-color:var(--bad)}
+.land{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;min-height:70vh}
+.hero h1{font-size:clamp(2.2rem,5vw,3.5rem);margin:.4em 0}.hero p{font-size:1.1rem;color:var(--mute);max-width:34em}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.chips span{background:#fff;border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-weight:600;font-size:.9rem}
+.auth{width:100%}
+.tabs{display:flex;gap:6px;margin:10px 0;background:#efecff;padding:4px;border-radius:12px}
+.tabs button{flex:1;padding:8px;border:0;background:none;border-radius:9px;cursor:pointer;font:inherit;font-weight:600;color:var(--mute)}
+.tabs .on{background:#fff;color:var(--v);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.err{color:var(--bad);min-height:1.4em;font-weight:600}.hint{font-size:.84rem;color:var(--mute)}
+.banner{background:linear-gradient(120deg,var(--v),var(--v2) 55%,var(--c));color:#fff;border-radius:20px;padding:26px 28px;box-shadow:0 14px 34px rgba(108,76,241,.3)}
+.av{width:46px;height:46px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;flex:none;border:3px solid rgba(255,255,255,.7)}
+.mh{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+.th{height:140px;border-radius:12px;background-size:cover;background-position:center;display:flex;align-items:end;padding:10px;color:#fff;font-weight:700;margin-bottom:12px}
+.tag{display:inline-block;background:#ece8ff;color:var(--v);border-radius:20px;padding:1px 11px;font-size:.8rem;font-weight:700}.tag.m{background:#dcf5ee;color:var(--m)}
+.st{color:#f0a020;letter-spacing:2px}
+.pill{border-radius:20px;padding:3px 12px;font-size:.8rem;font-weight:700}.pill.pending{background:#fff0d6;color:#9a5a00}.pill.done{background:#dcf5ee;color:var(--m)}
+.trk{display:flex;gap:6px;margin:10px 0}.trk span{flex:1;font-size:.78rem;text-align:center;padding:5px;border-radius:8px;background:#efecff;color:var(--mute);font-weight:600}.trk .on{background:var(--v);color:#fff}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start}.row>*{flex:1;min-width:180px}
+.fb{border-left:4px solid var(--v2);padding:6px 0 6px 14px;margin:10px 0;background:#f8f6ff;border-radius:0 10px 10px 0}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.bar>*{flex:1;min-width:160px}
+table{width:100%;border-collapse:collapse;font-size:.92rem}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}th{color:var(--mute);font-size:.82rem}
+.scroll{overflow-x:auto}
+.empty{padding:34px;text-align:center;color:var(--mute);border:2px dashed #d4cef5;border-radius:16px;background:#fbfaff}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(90px);background:var(--ink);color:#fff;padding:11px 22px;border-radius:12px;transition:transform .25s;z-index:9}
+#toast.show{transform:translateX(-50%)}
+@media(max-width:820px){.land{grid-template-columns:1fr;min-height:0}}
+@media(prefers-reduced-motion:reduce){#toast,.grid .card{transition:none}}
+</style>
+</head>
+<body>
+<nav id="nav"></nav>
+<main id="app"></main>
+<div id="toast" role="status"></div>
+
+<script>
+/* ---------- helpers & storage (no database: browser storage only) ---------- */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9);
+const H=s=>{let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))|0;return 'h'+h};
+const today=()=>new Date().toISOString().slice(0,10);
+const stars=n=>'★'.repeat(n)+'☆'.repeat(5-n);
+const avg=a=>a.length?(a.reduce((x,y)=>x+y,0)/a.length).toFixed(1):'–';
+const DOMAINS=['UI/UX','Architecture','Graphic Design','Illustration','Interior Design','Product Design'];
+const mem={};
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return mem[k]||null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}};
+
+function seed(){
+  const p=H('demo123');
+  return{users:[
+    {id:'a1',name:'Site Admin',email:'admin@foliomentor.com',pass:H('admin123'),role:'admin'},
+    {id:'m1',name:'Aarav Mehta',email:'aarav@demo.com',pass:p,role:'mentor',domain:'UI/UX',exp:'9 years, Senior Product Designer',bio:'Designs fintech and health apps. Will tell you honestly which case study to cut.'},
+    {id:'m2',name:'Isha Kulkarni',email:'isha@demo.com',pass:p,role:'mentor',domain:'Architecture',exp:'12 years, Principal Architect',bio:'Residential and adaptive-reuse projects. Reviews drawings, sheets and models.'},
+    {id:'m3',name:'Rohan Desai',email:'rohan@demo.com',pass:p,role:'mentor',domain:'Graphic Design',exp:'8 years, Brand Designer',bio:'Identity systems and packaging for food and retail brands.'},
+    {id:'m4',name:'Meera Nair',email:'meera@demo.com',pass:p,role:'mentor',domain:'Illustration',exp:'6 years, Freelance Illustrator',bio:'Editorial illustration and children\'s books. Strong on style and consistency.'},
+    {id:'d1',name:'Sneha Patil',email:'sneha@demo.com',pass:p,role:'designer',domain:'UI/UX',exp:'Beginner',bio:'Final-year design student.'}
+  ],projects:[
+    {id:'p1',uid:'d1',title:'Banyan Café Brand Identity',desc:'Logo, menu and packaging for a neighbourhood café. Focus on warm colour and hand-drawn lettering.',cat:'Graphic Design',link:'https://www.behance.net/',img:''},
+    {id:'p2',uid:'d1',title:'RailEasy Ticket Booking App',desc:'Redesign of a train ticket booking flow to cut steps from 9 to 5. Includes user research and wireframes.',cat:'UI/UX',link:'',img:''}
+  ],reviews:[
+    {id:'r1',did:'d1',mid:'m1',pid:'p2',note:'Is my booking flow clear? Are my case study sections in the right order?',status:'done',date:today(),
+     fb:{c:'The flow is easy to follow and the before/after step count is a strong hook. The research section is too long and buries your solution.',s:'Move the final screens to the top, cut the research to one page, and add one usability test result with a real number.',r:4},q:0}
+  ]};
+}
+let db=JSON.parse(store.get('fm_db')||'null')||seed();
+const save=()=>store.set('fm_db',JSON.stringify(db));
+const U=id=>db.users.find(u=>u.id==id)||{name:'Deleted user',domain:''};
+const cur=()=>db.users.find(u=>u.id==store.get('fm_me'));
+const toast=m=>{const t=$('toast');t.textContent=m;t.className='show';setTimeout(()=>t.className='',2400)};
+const hue=s=>[...s].reduce((a,c)=>a+c.charCodeAt(0),0)%360;
+const grad=c=>`linear-gradient(135deg,hsl(${hue(c)},55%,48%),hsl(${hue(c)+45},55%,32%))`;
+
+/* ---------- auth ---------- */
+function tab(n){$('f1').hidden=n!=1;$('f2').hidden=n!=2;$('t1').className=n==1?'on':'';$('t2').className=n==2?'on':'';$('err').textContent=''}
+function login(){
+  const e=$('le').value.trim().toLowerCase(),u=db.users.find(x=>x.email==e&&x.pass==H($('lp').value));
+  if(!u)return $('err').textContent='Email or password is incorrect.';
+  store.set('fm_me',u.id);location.hash=u.role=='admin'?'#/admin':'#/dashboard';render();
+}
+function register(){
+  const n=$('rn').value.trim(),e=$('re').value.trim().toLowerCase(),p=$('rp').value,err=m=>$('err').textContent=m;
+  if(n.length<2)return err('Enter your full name.');
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e))return err('Enter a valid email address.');
+  if(p.length<6)return err('Password needs at least 6 characters.');
+  if(db.users.some(u=>u.email==e))return err('This email is already registered. Log in instead.');
+  const role=$('rr').value,u={id:uid(),name:n,email:e,pass:H(p),role,domain:$('rd').value,exp:$('rx').value.trim()||(role=='mentor'?'Not specified':'Beginner'),bio:$('rb').value.trim()};
+  db.users.push(u);save();store.set('fm_me',u.id);toast('Account created');location.hash='#/dashboard';render();
+}
+function logout(){store.set('fm_me','');location.hash='#/login';render()}
+
+/* ---------- actions ---------- */
+function shrink(f){return new Promise(res=>{const r=new FileReader();r.onload=()=>{const i=new Image();i.onload=()=>{const s=Math.min(1,500/i.width),c=document.createElement('canvas');c.width=i.width*s;c.height=i.height*s;c.getContext('2d').drawImage(i,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.72))};i.onerror=()=>res('');i.src=r.result};r.readAsDataURL(f)})}
+async function addProj(){
+  const t=$('pt').value.trim(),d=$('pd').value.trim(),l=$('pl').value.trim(),f=$('pf').files[0];
+  if(t.length<3)return toast('Give the project a title.');
+  if(d.length<20)return toast('Describe the project in at least 20 characters.');
+  if(l&&!/^https?:\/\//.test(l))return toast('Link must start with http:// or https://');
+  let img='';if(f){if(!f.type.startsWith('image/'))return toast('Upload an image file.');img=await shrink(f)}
+  if(ed){const x=db.projects.find(p=>p.id==ed);Object.assign(x,{title:t,desc:d,cat:$('pc').value,link:l,img:img||x.img});ed=null;toast('Project updated')}else{db.projects.push({id:uid(),uid:cur().id,title:t,desc:d,cat:$('pc').value,link:l,img});toast('Project added')}save();render();
+}
+function delProj(id){if(!confirm('Delete this project and its review requests?'))return;db.projects=db.projects.filter(p=>p.id!=id);db.reviews=db.reviews.filter(r=>r.pid!=id);save();render()}
+function sendReq(){
+  const p=$('qp').value,m=$('qm').value,n=$('qn').value.trim();
+  if(!p)return toast('Add a project to your portfolio first.');
+  if(!m)return toast('Choose a mentor.');
+  if(n.length<10)return toast('Tell the mentor what you want feedback on.');
+  db.reviews.push({id:uid(),did:cur().id,mid:m,pid:p,note:n,status:'pending',date:today()});save();toast('Review requested');location.hash='#/feedback';
+}
+function giveFb(id){
+  const c=$('c'+id).value.trim(),s=$('s'+id).value.trim();
+  if(c.length<20||s.length<20)return toast('Write at least 20 characters in comments and suggestions.');
+  const x=db.reviews.find(v=>v.id==id);x.status='done';x.fb={c,s,r:+$('r'+id).value};save();toast('Feedback sent');render();
+}
+function rateFb(id,v){db.reviews.find(r=>r.id==id).q=+v;save();toast('Thanks for rating this feedback');render()}
+function follow(id){
+  const n=$('f'+id).value.trim(),x=db.reviews.find(r=>r.id==id);
+  if(n.length<5)return toast('Write your follow-up question.');
+  db.reviews.push({id:uid(),did:x.did,mid:x.mid,pid:x.pid,note:'Follow-up: '+n,status:'pending',date:today()});save();toast('Follow-up sent');render();
+}
+function delUser(id){if(!confirm('Remove this user and their data?'))return;db.users=db.users.filter(u=>u.id!=id);db.projects=db.projects.filter(p=>p.uid!=id);db.reviews=db.reviews.filter(r=>r.did!=id&&r.mid!=id);save();render()}
+function resetDemo(){if(!confirm('Reset everything to the demo data?'))return;db=seed();save();store.set('fm_me','');location.hash='#/login';render()}
+function csv(){
+  const rows=[['Designer','Mentor','Project','Status','Mentor rating','Feedback quality']].concat(db.reviews.map(r=>[U(r.did).name,U(r.mid).name,(db.projects.find(p=>p.id==r.pid)||{}).title||'',r.status,r.fb?r.fb.r:'',r.q||'']));
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n')],{type:'text/csv'}));a.download='foliomentor-report.csv';a.click();
+}
+function copyLink(){const l=location.href.split('#')[0]+'#/share/'+cur().id;(navigator.clipboard?navigator.clipboard.writeText(l):Promise.reject()).then(()=>toast('Portfolio link copied'),()=>prompt('Copy your portfolio link:',l))}
+let mf={q:'',d:''};
+function filt(){mf.q=$('mq').value.toLowerCase();mf.d=$('md').value;$('ml').innerHTML=mentorList()}
+
+/* ---------- view pieces ---------- */
+const opts=(a,sel)=>a.map(x=>`<option ${x==sel?'selected':''}>${esc(x)}</option>`).join('');
+const pcard=(p,del)=>`<div class="card"><div class="th" style="${p.img?`background-image:url(${p.img})`:'background:'+grad(p.cat)}">${p.img?'':esc(p.title.split(' ').slice(0,2).join(' '))}</div><h4>${esc(p.title)}</h4><span class="tag">${esc(p.cat)}</span><p>${esc(p.desc)}</p>${p.link?`<a href="${esc(p.link)}" target="_blank" rel="noopener">Open project link</a>`:''}${del?`<br><button class="btn s" onclick="editProj('${p.id}')">Edit</button><button class="btn s d" onclick="delProj('${p.id}')">Delete</button>`:''}</div>`;
+const pill=s=>`<span class="pill ${s}">${s=='done'?'Reviewed':'Waiting for mentor'}</span>`;
+function mentorList(){
+  const me=cur(),l=db.users.filter(u=>u.role=='mentor'&&(!mf.d||u.domain==mf.d)&&(u.name+u.bio+u.exp).toLowerCase().includes(mf.q)).sort((a,b)=>(b.domain==me.domain)-(a.domain==me.domain));
+  if(!l.length)return '<div class="empty">No mentors match. Try a different domain or search term.</div>';
+  return '<div class="grid">'+l.map(m=>{
+    const done=db.reviews.filter(r=>r.mid==m.id&&r.status=='done'),q=done.filter(r=>r.q).map(r=>r.q),best=me.role=='designer'&&m.domain==me.domain;
+    return `<div class="card"><div class="mh">${av(m)}<div><h4 style="margin:0">${esc(m.name)}</h4><span class="tag">${esc(m.domain)}</span>${best?' <span class="tag m">Best match</span>':''}</div></div><p><b>${esc(m.exp)}</b></p><p>${esc(m.bio)}</p><p class="hint">${done.length} reviews · feedback quality ${avg(q)}/5</p>${me.role=='designer'?`<button class="btn s" onclick="location.hash='#/request/${m.id}'">Request a review</button>`:''}</div>`}).join('')+'</div>';
+}
+
+const av=u=>`<span class="av" style="background:${grad(u.name)}">${esc(u.name.split(' ').map(w=>w[0]).slice(0,2).join(''))}</span>`;
+const banner=u=>`<div class="banner"><div class="mh" style="margin:0">${av(u)}<div><h2 style="margin:0">Hello, ${esc(u.name.split(' ')[0])}</h2><div>${u.role=='mentor'?'Your feedback helps someone land their next opportunity.':'Build your portfolio, get expert feedback and keep improving.'}</div></div></div></div>`;
+const trk=r=>`<div class="trk"><span class="on">Requested</span><span class="${r.status=='done'?'on':''}">Reviewed</span><span class="${r.q?'on':''}">Feedback rated</span></div>`;
+let ed=null;
+function editProj(id){ed=id;render();window.scrollTo(0,0)}
+function cancelEd(){ed=null;render()}
+function saveProfile(){const n=$('xn').value.trim();if(n.length<2)return toast('Enter your name.');const u=cur();Object.assign(u,{name:n,domain:$('xd').value,exp:$('xx').value.trim(),bio:$('xb').value.trim()});save();toast('Profile saved');render()}
+const RES=[['Checklist','Lead with your best three projects','Recruiters skim. Put your strongest, most relevant work first and cut anything you would not defend in an interview.',''],
+['Checklist','Show process, not only results','For each project add the problem, your role, key decisions and one measurable outcome. Sketches and iterations prove your thinking.',''],
+['Checklist','Write one-page case studies','Context, challenge, solution, impact. Plain language beats jargon.',''],
+['Checklist','Make it easy to open','Consistent type, optimised images, and a link that works on a phone.',''],
+['Community','Behance','Showcase creative work and see how others present theirs.','https://www.behance.net/'],
+['Community','Dribbble','UI and visual design inspiration from working designers.','https://dribbble.com/'],
+['Institute','National Institute of Design','Design education and portfolio development.','https://www.nid.edu/'],
+['Institute','Council of Architecture','Professional standards and architectural education.','https://www.coa.gov.in/']];
+/* ---------- pages ---------- */
+const P={
+login:()=>`<div class="land"><div class="hero"><span class="tag">For designers, architects and creatives</span><h1>Get your portfolio reviewed by people who hire.</h1><p>Upload your work, request feedback from industry mentors and turn every review into a stronger portfolio.</p><div class="chips"><span>✔ Expert feedback</span><span>✔ Mentors by domain</span><span>✔ Track every review</span></div></div><div class="auth card"><h2>Welcome</h2>
+<div class="tabs"><button id="t1" class="on" onclick="tab(1)">Log in</button><button id="t2" onclick="tab(2)">Create account</button></div>
+<div id="f1"><label for="le">Email</label><input id="le" type="email" autocomplete="username"><label for="lp">Password</label><input id="lp" type="password" autocomplete="current-password"><button class="btn" onclick="login()">Log in</button></div>
+<div id="f2" hidden><label for="rn">Full name</label><input id="rn"><label for="re">Email</label><input id="re" type="email"><label for="rp">Password (6+ characters)</label><input id="rp" type="password">
+<div class="row"><div><label for="rr">I am a</label><select id="rr"><option value="designer">Designer / student</option><option value="mentor">Mentor</option></select></div><div><label for="rd">Domain</label><select id="rd">${opts(DOMAINS)}</select></div></div>
+<label for="rx">Experience (e.g. Beginner, 5 years in branding)</label><input id="rx"><label for="rb">Short bio</label><textarea id="rb"></textarea><button class="btn" onclick="register()">Create account</button></div>
+<p class="err" id="err" role="alert"></p>
+<p class="hint">Demo logins: sneha@demo.com / demo123 (designer), aarav@demo.com / demo123 (mentor), admin@foliomentor.com / admin123 (admin)</p></div></div>`,
+
+dashboard:u=>{
+  if(u.role=='mentor'){
+    const mine=db.reviews.filter(r=>r.mid==u.id),pen=mine.filter(r=>r.status=='pending'),done=mine.filter(r=>r.status=='done'),q=done.filter(r=>r.q).map(r=>r.q);
+    return `${banner(u)}<div class="stats"><div class="card"><b>${pen.length}</b>Pending requests</div><div class="card"><b>${done.length}</b>Reviews completed</div><div class="card"><b>${avg(q)}</b>Feedback quality</div></div>
+    <h3>Review requests</h3>`+(pen.length?pen.map(r=>{const p=db.projects.find(x=>x.id==r.pid)||{title:'(deleted)',desc:'',cat:''};return `<div class="card" style="margin-bottom:16px"><p><b>${esc(U(r.did).name)}</b> (${esc(U(r.did).exp)}) asked on ${r.date}:</p><p>"${esc(r.note)}"</p><div class="grid">${p.id?pcard(p):''}</div>
+    <label for="c${r.id}">What works well, and what doesn't</label><textarea id="c${r.id}"></textarea><label for="s${r.id}">Specific suggestions to improve</label><textarea id="s${r.id}"></textarea>
+    <label for="r${r.id}">Portfolio rating</label><select id="r${r.id}">${[5,4,3,2,1].map(n=>`<option value="${n}">${n} – ${stars(n)}</option>`).join('')}</select><button class="btn" onclick="giveFb('${r.id}')">Send feedback</button></div>`}).join(''):'<div class="empty">No pending requests. New ones will show here.</div>')+
+    (done.length?`<h3>Feedback history</h3>`+done.map(r=>`<div class="card" style="margin-bottom:10px"><b>${esc(U(r.did).name)}</b> · ${r.date} · <span class="st">${stars(r.fb.r)}</span><p>${esc(r.fb.c)}</p></div>`).join(''):'');
+  }
+  const pr=db.projects.filter(p=>p.uid==u.id),rv=db.reviews.filter(r=>r.did==u.id),dn=rv.filter(r=>r.status=='done');
+  return `${banner(u)}<div class="stats"><div class="card"><b>${pr.length}</b>Projects</div><div class="card"><b>${rv.length}</b>Reviews requested</div><div class="card"><b>${dn.length}</b>Reviews received</div><div class="card"><b>${avg(dn.map(r=>r.fb.r))}</b>Average portfolio rating</div></div>
+  <div class="row"><button class="btn" onclick="location.hash='#/portfolio'">Add a project</button><button class="btn" onclick="location.hash='#/mentors'">Find a mentor</button><button class="btn" onclick="location.hash='#/request'">Request a review</button></div>
+  <h3 style="margin-top:28px">Suggested mentors in ${esc(u.domain)}</h3><div class="grid">${db.users.filter(m=>m.role=='mentor'&&m.domain==u.domain).slice(0,3).map(m=>`<div class="card"><div class="mh">${av(m)}<div><b>${esc(m.name)}</b><br><span class="hint">${esc(m.exp)}</span></div></div><button class="btn s" onclick="location.hash='#/request/${m.id}'">Request a review</button></div>`).join('')||'<p class="hint">No mentors in your domain yet. <a href="#/mentors">Browse all mentors</a></p>'}</div><h3 style="margin-top:28px">Latest feedback</h3>`+(dn.length?dn.slice(-2).reverse().map(r=>`<div class="card" style="margin-bottom:10px"><b>${esc(U(r.mid).name)}</b> on ${esc((db.projects.find(p=>p.id==r.pid)||{}).title||'a project')} · <span class="st">${stars(r.fb.r)}</span><div class="fb">${esc(r.fb.c)}</div></div>`).join(''):'<div class="empty">No feedback yet. Request a review to get started.</div>');
+},
+
+portfolio:u=>{const pr=db.projects.filter(p=>p.uid==u.id),e=db.projects.find(p=>p.id==ed)||{title:'',desc:'',link:'',cat:u.domain};return `<h2>My portfolio</h2><div class="row"><button class="btn s" onclick="copyLink()">Copy shareable portfolio link</button></div>
+<div class="card" style="margin:16px 0"><h3>${ed?'Edit project':'Add a project'}</h3><div class="row"><div><label for="pt">Project name</label><input id="pt" value="${esc(e.title)}"></div><div><label for="pc">Category</label><select id="pc">${opts(DOMAINS,e.cat)}</select></div></div>
+<label for="pd">Description</label><textarea id="pd" placeholder="What was the brief, what did you do, what was the result?">${esc(e.desc)}</textarea>
+<div class="row"><div><label for="pl">Project link (optional)</label><input id="pl" placeholder="https://" value="${esc(e.link)}"></div><div><label for="pf">Cover image (optional)</label><input id="pf" type="file" accept="image/*"></div></div><button class="btn" onclick="addProj()">${ed?'Update project':'Save project'}</button>${ed?'<button class="btn s" onclick="cancelEd()">Cancel</button>':''}</div>
+<h3>Projects (${pr.length})</h3>`+(pr.length?`<div class="grid">${pr.map(p=>pcard(p,1)).join('')}</div>`:'<div class="empty">Your portfolio is empty. Add your first project above.</div>')},
+
+mentors:()=>`<h2>Find a mentor</h2><div class="bar"><input id="mq" placeholder="Search by name or experience" oninput="filt()" value="${esc(mf.q)}" aria-label="Search mentors"><select id="md" onchange="filt()" aria-label="Filter by domain"><option value="">All domains</option>${DOMAINS.map(d=>`<option ${d==mf.d?'selected':''}>${d}</option>`).join('')}</select></div><div id="ml">${mentorList()}</div>`,
+
+request:(u,pre)=>{const pr=db.projects.filter(p=>p.uid==u.id),ms=db.users.filter(x=>x.role=='mentor'),mine=db.reviews.filter(r=>r.did==u.id);
+return `<h2>Request a review</h2>`+(pr.length?`<div class="card" style="max-width:620px"><label for="qp">Project to review</label><select id="qp">${pr.map(p=>`<option value="${p.id}">${esc(p.title)}</option>`).join('')}</select>
+<label for="qm">Mentor</label><select id="qm">${ms.map(m=>`<option value="${m.id}" ${m.id==pre?'selected':''}>${esc(m.name)} (${esc(m.domain)})</option>`).join('')}</select>
+<label for="qn">What do you want feedback on?</label><textarea id="qn"></textarea><button class="btn" onclick="sendReq()">Send request</button></div>`:'<div class="empty">You need at least one project first. <a href="#/portfolio">Add a project</a></div>')+
+`<h3 style="margin-top:28px">My requests</h3>`+(mine.length?`<div class="card scroll"><table><tr><th>Project</th><th>Mentor</th><th>Date</th><th>Status</th></tr>${mine.map(r=>`<tr><td>${esc((db.projects.find(p=>p.id==r.pid)||{}).title)}</td><td>${esc(U(r.mid).name)}</td><td>${r.date}</td><td>${pill(r.status)}</td></tr>`).join('')}</table></div>`:'<p class="hint">No requests yet.</p>')},
+
+feedback:u=>{const rv=db.reviews.filter(r=>r.did==u.id).reverse();
+return `<h2>Feedback history</h2>`+(rv.length?rv.map(r=>{const p=db.projects.find(x=>x.id==r.pid)||{title:'(deleted project)'};
+return `<div class="card" style="margin-bottom:16px"><div class="row"><h4>${esc(p.title)}</h4><div style="text-align:right">${pill(r.status)}</div></div><p class="hint">Mentor: ${esc(U(r.mid).name)} · ${r.date}</p>${trk(r)}<p>You asked: "${esc(r.note)}"</p>`+
+(r.status=='done'?`<div class="fb"><p><b>Rating:</b> <span class="st">${stars(r.fb.r)}</span></p><p><b>Comments:</b> ${esc(r.fb.c)}</p><p><b>Suggestions:</b> ${esc(r.fb.s)}</p></div>
+<label for="q${r.id}">How useful was this feedback?</label><select id="q${r.id}" onchange="rateFb('${r.id}',this.value)"><option value="0">Not rated</option>${[5,4,3,2,1].map(n=>`<option value="${n}" ${r.q==n?'selected':''}>${n} – ${stars(n)}</option>`).join('')}</select>
+<label for="f${r.id}">Ask a follow-up</label><div class="row"><input id="f${r.id}" placeholder="Your follow-up question"><button class="btn s" style="flex:0" onclick="follow('${r.id}')">Send</button></div>`:'<p class="hint">Your mentor has not responded yet.</p>')+`</div>`}).join(''):'<div class="empty">Nothing here yet. <a href="#/request">Request your first review</a></div>')},
+
+resources:()=>`<h2>Learning resources</h2><p class="hint">Starting points for a stronger portfolio.</p><div class="grid">${RES.map(r=>`<div class="card"><span class="tag">${r[0]}</span><h4>${r[1]}</h4><p>${r[2]}</p>${r[3]?`<a href="${r[3]}" target="_blank" rel="noopener">Visit site</a>`:''}</div>`).join('')}</div>`,
+
+profile:u=>`<h2>My profile</h2><div class="card" style="max-width:640px"><div class="mh">${av(u)}<div><b>${esc(u.email)}</b><br><span class="tag">${u.role}</span></div></div><label for="xn">Full name</label><input id="xn" value="${esc(u.name)}"><div class="row"><div><label for="xd">Domain / expertise</label><select id="xd">${opts(DOMAINS,u.domain)}</select></div><div><label for="xx">Experience</label><input id="xx" value="${esc(u.exp)}"></div></div><label for="xb">Bio</label><textarea id="xb">${esc(u.bio)}</textarea><button class="btn" onclick="saveProfile()">Save profile</button></div>`,
+
+admin:()=>{const ds=db.users.filter(u=>u.role=='designer'),ms=db.users.filter(u=>u.role=='mentor'),dn=db.reviews.filter(r=>r.status=='done'),q=dn.filter(r=>r.q).map(r=>r.q);
+return `<h2>Admin panel</h2><div class="stats"><div class="card"><b>${ds.length}</b>Designers</div><div class="card"><b>${ms.length}</b>Mentors</div><div class="card"><b>${db.projects.length}</b>Projects</div><div class="card"><b>${dn.length}/${db.reviews.length}</b>Reviews completed</div><div class="card"><b>${avg(q)}</b>Feedback quality</div></div>
+<div class="row"><button class="btn s" onclick="csv()">Download report (CSV)</button><button class="btn s d" onclick="resetDemo()">Reset demo data</button></div>
+<h3 style="margin-top:24px">Users</h3><div class="card scroll"><table><tr><th>Name</th><th>Email</th><th>Role</th><th>Domain</th><th></th></tr>${db.users.filter(u=>u.role!='admin').map(u=>`<tr><td>${esc(u.name)}</td><td>${esc(u.email)}</td><td>${u.role}</td><td>${esc(u.domain)}</td><td><button class="btn s d" onclick="delUser('${u.id}')">Remove</button></td></tr>`).join('')}</table></div>
+<h3 style="margin-top:24px">Mentor feedback quality</h3><div class="card scroll"><table><tr><th>Mentor</th><th>Reviews done</th><th>Avg. feedback quality</th></tr>${ms.map(m=>{const d=db.reviews.filter(r=>r.mid==m.id&&r.status=='done');return `<tr><td>${esc(m.name)}</td><td>${d.length}</td><td>${avg(d.filter(r=>r.q).map(r=>r.q))}</td></tr>`}).join('')}</table></div>
+<h3 style="margin-top:24px">Portfolio content</h3><div class="card scroll"><table><tr><th>Project</th><th>Owner</th><th>Category</th><th></th></tr>${db.projects.map(p=>`<tr><td>${esc(p.title)}</td><td>${esc(U(p.uid).name)}</td><td>${esc(p.cat)}</td><td><button class="btn s d" onclick="delProj('${p.id}')">Remove</button></td></tr>`).join('')}</table></div>`}
+};
+
+/* ---------- router ---------- */
+const ALLOW={resources:['designer','mentor'],profile:['designer','mentor'],dashboard:['designer','mentor'],portfolio:['designer'],mentors:['designer','mentor','admin'],request:['designer'],feedback:['designer'],admin:['admin']};
+function render(){
+  const r=location.hash.slice(2).split('/'),pg=r[0]||'login',u=cur();
+  if(pg=='share'){const o=U(r[1]);$('nav').innerHTML='<b>FolioMentor</b><a href="#/login">Log in</a>';
+    $('app').innerHTML=`<h2>${esc(o.name)}'s portfolio</h2><p>${esc(o.exp||'')}</p><div class="grid">${db.projects.filter(p=>p.uid==r[1]).map(p=>pcard(p)).join('')||'<div class="empty">No projects yet.</div>'}</div>`;return}
+  if(!u&&pg!='login'){location.hash='#/login';return}
+  if(u&&(pg=='login'||!(ALLOW[pg]||[]).includes(u.role))){location.hash=u.role=='admin'?'#/admin':'#/dashboard';return}
+  const links=u?(u.role=='designer'?[['dashboard','Dashboard'],['portfolio','Portfolio'],['mentors','Mentors'],['request','Request review'],['feedback','Feedback'],['resources','Learn'],['profile','Profile']]:u.role=='mentor'?[['dashboard','Requests'],['mentors','Mentors'],['resources','Learn'],['profile','Profile']]:[['admin','Admin panel'],['mentors','Mentors']]):[];
+  $('nav').innerHTML='<b>FolioMentor</b>'+links.map(l=>`<a href="#/${l[0]}" class="${l[0]==pg?'on':''}">${l[1]}</a>`).join('')+(u?`<button onclick="logout()">Log out (${esc(u.name.split(' ')[0])})</button>`:'');
+  $('app').innerHTML=P[pg](u,r[1]);window.scrollTo(0,0);
+}
+addEventListener('hashchange',render);render();
+</script>
+</body>
+</html>
